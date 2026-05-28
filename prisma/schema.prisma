@@ -11,13 +11,13 @@ model Product {
   name        String
   description String
   price       Float
-  seller      Seller         @relation(fields: [sellerId], references: [id])
   sellerId    Int
   image       String
+  categoryId  Int
+  category    Category       @relation(fields: [categoryId], references: [id])
+  seller      Seller         @relation(fields: [sellerId], references: [id])
   colors      ProductColor[]
   sizes       ProductSize[]
-  category    Category       @relation(fields: [categoryId], references: [id])
-  categoryId  Int
 }
 
 model Seller {
@@ -34,10 +34,10 @@ model Color {
 
 model ProductColor {
   id        Int     @id @default(autoincrement())
-  product   Product @relation(fields: [productId], references: [id])
   productId Int
-  color     Color   @relation(fields: [colorId], references: [id])
   colorId   Int
+  color     Color   @relation(fields: [colorId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Size {
@@ -48,10 +48,10 @@ model Size {
 
 model ProductSize {
   id        Int     @id @default(autoincrement())
-  product   Product @relation(fields: [productId], references: [id])
   productId Int
-  size      Size    @relation(fields: [sizeId], references: [id])
   sizeId    Int
+  product   Product @relation(fields: [productId], references: [id])
+  size      Size    @relation(fields: [sizeId], references: [id])
 }
 
 model Category {
